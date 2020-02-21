@@ -7,7 +7,7 @@
     "serve": "concurrently \"npm:mock\" \"vue-cli-service serve\"",
     "build:prod": "vue-cli-service build",
     "build:stage": "vue-cli-service build --mode staging",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint --fixed",
     "mock": "cd mock && ts-node-dev mock-server.ts",
     "svg": "vsvg -s ./src/icons/svg -t ./src/icons/components --ext ts --es6",
     "test:e2e": "vue-cli-service test:e2e",
@@ -124,7 +124,7 @@
   ],
   "lint-staged": {
     "*.{js,vue}": [
-      "vue-cli-service lint",
+      "vue-cli-service lint --fixed",
       "git add"
     ]
   },

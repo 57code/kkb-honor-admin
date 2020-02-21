@@ -15,3 +15,6 @@ export const articleStatusFilter = (status: string) => {
 export const uppercaseFirstChar = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
+
+// 解析排位等级为用户友好格式
+export { parseRank } from './parseRank'

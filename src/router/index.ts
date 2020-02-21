@@ -9,6 +9,7 @@ import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
+import { playerRoutes } from './modules/players'
 
 Vue.use(Router)
 
@@ -143,6 +144,7 @@ export const constantRoutes: RouteConfig[] = [
  * the routes that need to be dynamically loaded based on user roles
 */
 export const asyncRoutes: RouteConfig[] = [
+  playerRoutes,
   {
     path: '/permission',
     component: Layout,

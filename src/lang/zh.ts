@@ -1,5 +1,9 @@
 export default {
   route: {
+    playerMgt: '玩家管理',
+    createPlayer: '创建玩家',
+    editPlayer: '编辑玩家',
+    playerList: '玩家列表',
     dashboard: '首页',
     documentation: '文档',
     guide: '引导页',
@@ -80,6 +84,10 @@ export default {
     any: '随便填',
     thirdparty: '第三方登录',
     thirdpartyTips: '本地不能模拟，请结合自己业务进行模拟！！！'
+  },
+  player: {
+    accountname: '账户名',
+    nickname: '昵称'
   },
   documentation: {
     documentation: '文档',
