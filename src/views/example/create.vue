@@ -18,7 +18,7 @@
     </el-row>
     <el-table
       v-loading="listLoading"
-      :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+      :data="tableData2.slice((currentPage-1)*pagesize,currentPage*pagesize)"
       border
       fit
       highlight-current-row
@@ -102,7 +102,7 @@
             plain
             type=""
             size="small"
-            @click.native.prevent="deleteRow(scope.$index, tableData)"
+            @click.native.prevent="deleteRow(scope.$index, tableData2)"
           >
             移除
           </el-button>
@@ -194,7 +194,7 @@
       :page-sizes="[5, 10, 15, 20]"
       :page-size="pagesize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="tableData.length"
+      :total="tableData2.length"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
@@ -212,7 +212,7 @@ import ArticleDetail from './components/ArticleDetail.vue'
   }
 })
 export default class extends Vue {
-  tableData = [{
+  tableData2 = [{
     id: 1,
     server: '手Q1区',
     name: ' 苍天翔龙',
@@ -369,7 +369,7 @@ export default class extends Vue {
   }
   async saveBook() {
     try {
-      await this.tableData.push({
+      await this.tableData2.push({
         id: this.book.id,
         name: this.book.name,
         status: this.book.status,
