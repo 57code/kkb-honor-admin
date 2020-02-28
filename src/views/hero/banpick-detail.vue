@@ -84,7 +84,12 @@ export default class extends Vue {
         left: '1%'
       },
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        formatter: ([f1, f2]: EChartOption.Tooltip.Format[]) => {
+          const v1 = f1.data * 100 + '%'
+          const v2 = f2.data * 100 + '%'
+          return '办选率<br>' + f1.marker + f1.seriesName + ':' + v1 + '<br>' + f2.marker + f2.seriesName + ':' + v2
+        }
       },
       legend: {
         top: 20,
@@ -132,7 +137,10 @@ export default class extends Vue {
           },
           axisLabel: {
             margin: 10,
-            fontSize: 14
+            fontSize: 14,
+            formatter: function(value: number) {
+              return value * 100 + '%'
+            }
           },
           splitLine: {
             lineStyle: {
