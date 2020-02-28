@@ -18,3 +18,10 @@ export const uppercaseFirstChar = (str: string) => {
 
 // 解析排位等级为用户友好格式
 export { parseRank } from './parseRank'
+
+export const percent = (num: number) => {
+  if (num) {
+    return Math.round(num * 100) + '%'
+  }
+  return ''
+}

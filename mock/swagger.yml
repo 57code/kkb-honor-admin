@@ -11,6 +11,8 @@ info:
 servers:
   - url: /mock-api/v1
 tags:
+  - name: heros
+    description: 英雄相关api
   - name: articles
     description: Articles data related api.
   - name: roles
@@ -22,6 +24,72 @@ tags:
   - name: players
     description: 玩家相关的api
 paths:   
+  
+  /banpick:
+    get:
+      description: 查询英雄办选统计数据列表
+      operationId: getBanPickData
+      responses:
+        '200':
+          description: OK
+  /banpick/{id}:
+    get:
+      description: 查询指定英雄的办选详情数据
+      operationId: getBanPickDetail
+      responses:
+        '200':
+          description: OK
+          
+  /heros/{id}:
+    get:
+      tags:
+        - heros
+      description: 根据id查询对应英雄数据
+      operationId: getHero
+      responses:
+        '200':
+          description: OK
+    put:
+      tags:
+        - heros
+      description: 更新指定id英雄数据
+      operationId: updateHero
+      responses:
+        '200':
+          description: OK
+
+    delete:
+      tags:
+        - heros
+      description: 根据id删除英雄数据
+      operationId: deleteHero
+      responses:
+        '200':
+          description: OK
+
+
+  /heros:
+    get:
+      tags:
+        - heros
+      description: 获取英雄列表
+      operationId: getHeros
+      responses:
+        200:
+          description: OK
+
+    post:
+      tags:
+        - heros
+      description: 新增英雄数据
+      operationId: createHero
+      responses:
+        '200':
+          description: OK
+    
+
+
+
   /players:
     get:
       tags:
@@ -1113,6 +1181,23 @@ components:
         - key
         - name
         - routes
+    Hero:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: 鲁班7号
+        icon:
+          type: string
+          example: lb.png
+        classify:
+          type: array
+          items:
+            type: string
+            example: 射手
     User:
       type: object
       properties:

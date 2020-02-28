@@ -10,6 +10,7 @@ import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
 import { playerRoutes } from './modules/players'
+import { heroRoutes } from './modules/heros'
 
 Vue.use(Router)
 
@@ -144,6 +145,7 @@ export const constantRoutes: RouteConfig[] = [
  * the routes that need to be dynamically loaded based on user roles
 */
 export const asyncRoutes: RouteConfig[] = [
+  heroRoutes,
   playerRoutes,
   {
     path: '/permission',

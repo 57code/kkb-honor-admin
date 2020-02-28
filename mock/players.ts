@@ -1,22 +1,11 @@
 import faker from 'faker'
 import { Response, Request } from 'express'
 import { Player, Hero } from '../src/api/types'
+import { heros } from "./heros";
 
 faker.locale = 'zh_CN'
 
 // 模拟想用英雄
-const heros: Hero[] = [
-  {name: '百里玄策', icon: 'xc.jpg'},
-  {name: '孙悟空', icon: 'swc.jpg'},
-  {name: '鲁班七号', icon: 'lb.jpg'},
-  {name: '后羿', icon: 'hy.jpg'},
-  {name: '王昭君', icon: 'wzj.jpg'},
-  {name: '貂蝉', icon: 'dc.jpg'},
-  {name: '钟馗', icon: 'zk.jpg'},
-  {name: '牛魔', icon: 'nm.jpg'},
-  {name: '亚瑟', icon: 'ys.jpg'},
-  {name: '吕布', icon: 'lb.jpg'},
-]
 // 只有三个不能重复
 function genWantoplay() {
   let wanttoplay: Set<Hero> = new Set();
@@ -24,7 +13,6 @@ function genWantoplay() {
     wanttoplay.add(heros[faker.random.number(9)])
   }
 
-  console.log(wanttoplay);
   return wanttoplay;
 }
 

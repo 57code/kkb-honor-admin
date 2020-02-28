@@ -1,15 +1,15 @@
 <template>
-  <player-detail :is-edit="true" />
+  <hero-detail :is-edit="true" />
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import PlayerDetail from './components/PlayerDetail.vue'
+import HeroDetail from './components/HeroDetail.vue'
 
 @Component({
-  name: 'EditPlayer',
+  name: 'EditHero',
   components: {
-    PlayerDetail
+    HeroDetail
   }
 })
 export default class extends Vue {}

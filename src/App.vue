@@ -2,7 +2,6 @@
   <div id="app">
     <router-view />
     <service-worker-update-popup />
-    test
   </div>
 </template>
 

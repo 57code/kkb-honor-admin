@@ -50,6 +50,7 @@ console.log(apiSummary)
 // Catch 404 error
 app.use((req, res, next) => {
   const err = new Error('Not Found')
+  
   res.status(404).json({
     message: err.message,
     error: err
@@ -66,6 +67,8 @@ console.log('Mock server started on port ' + port + '!')
 
 // Event listener for HTTP server "error" event.
 function onError(error: any) {
+  console.log(error);
+  
   if (error.syscall !== 'listen') {
     throw error
   }

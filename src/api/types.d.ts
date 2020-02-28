@@ -57,6 +57,33 @@ export interface Player {
 }
 
 export interface Hero {
+  id: number,
   name: string,
-  icon: string
+  icon: string,
+  classify: string[]
+}
+
+export interface Bp {
+  ban: number[],
+  pick: number[]
+}
+export interface BanPick {
+  hero: Hero,
+  ban: number,
+  pick: number
+}
+
+export type RangeType = 'week' | 'month' | 'quarter' | 'year'
+export type BanPickDetail = {
+  [key in RangeType]: Bp
+}
+export type BanPickDetailAndHero = { hero: Hero } & BanPickDetail
+
+export type RangeData = {
+  [key in RangeType]: string[]
+}
+
+export interface Result<T> {
+  code: number,
+  data: { [key: string]: T }
 }
