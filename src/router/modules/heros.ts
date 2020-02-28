@@ -58,6 +58,6 @@ export const heroRoutes: RouteConfig = {
         activeMenu: '/heros/banpick',
         hidden: true
       }
-    },
+    }
   ]
 }

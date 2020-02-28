@@ -5,7 +5,7 @@ export const defaultHeroData: Hero = {
   id: 0,
   name: '',
   icon: '',
-  classify: [],
+  classify: []
 }
 
 export const getHeros = (params: any) =>
