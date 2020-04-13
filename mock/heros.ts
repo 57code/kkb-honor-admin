@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Hero, BanPick, BanPickDetail } from "../src/api/types";
+import { Hero, BanPick, BanPickDetailAndHero } from "../src/api/types";
 import faker from 'faker'
 
 export const heros: Hero[] = [
@@ -27,7 +27,7 @@ const banpick: BanPick[] = [
     { hero: heros[8], ban: 0.03, pick: 0.15 },
     { hero: heros[9], ban: 0.07, pick: 0.29 },
 ]
-const banpickDetail: BanPickDetail[] = [
+const banpickDetail: BanPickDetailAndHero[] = [
     {
         hero: heros[0], week: {
             ban: [0.05, 0.04, 0.03, 0.05, 0.06, 0.05, 0.05],
