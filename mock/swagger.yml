@@ -251,8 +251,8 @@ paths:
                   data:
                     type: object
                     properties:
-                      article:
-                        $ref: '#/components/schemas/Article'
+                      player:
+                        $ref: '#/components/schemas/Player'
         401:
           $ref: '#/components/responses/Unauthorized'
         404:
