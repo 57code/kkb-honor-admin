@@ -72,9 +72,56 @@ export const getPlayer = (req: Request, res: Response) => {
       })
     }
   }
+
   // 没找到响应数据，报错
   res.json({
     code: 70001,
     message: '没有找到相应的玩家信息'
+  })
+}
+
+// 创建玩家
+export const createPlayer = (req: Request, res: Response) => {
+  // 新增的英雄数据
+  const { player } = req.body
+  
+  // 直接返回
+  res.json({
+    code: 20000,
+    data: {
+      player
+    }
+  })
+}
+
+
+// 更新玩家
+export const updatePlayer = (req: Request, res: Response) => {
+  // 新增的英雄数据
+  const { id } = req.params
+  const { player } = req.body
+  
+  for(const player of playerList) {
+    if (player.id.toString() === id) {
+      return res.json({
+        code: 20000,
+        data: {
+          player
+        }
+      })
+    }
+  }
+  // 直接返回
+  res.json({
+    code: 70001,
+    message: '没有找到响应玩家信息'
+  })
+}
+
+// 删除玩家
+export const deletePlayer = (req: Request, res: Response) => {
+  // 直接返回
+  res.json({
+    code: 20000,
   })
 }

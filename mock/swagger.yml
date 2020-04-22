@@ -72,14 +72,30 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Player'
+    post: #在get后面增加一个post定义
+      tags: #所属标签
+        - players
+      operationId: createPlayer # 操作id，必要，映射到实现函数
+      summary: 新增玩家信息 # 概要
+      description: 创建玩家并返回创建玩家的数据 # 详细描述
+      # 描述参数信息
+      parameters: 
+        - name: player
+          in: query # 参数位于哪里
+          description: 新建玩家数据
+          schema:
+            $ref: '#/components/schemas/Player'
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: '#/components/responses/Unauthorized'
   /players/{id}: #多了一个参数
     get:
       tags: 
         - players
       summary: 获取指定玩家信息
       operationId: getPlayer
-      security: # 定义安全选项，保护路由
-        - AccessTokenAuth: []
       parameters:
         - name: id
           in: path
@@ -95,6 +111,66 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         404:
           $ref: '#/components/responses/NotFound'
+    put: # 在get后面定义put接口
+      tags:
+        - players
+      summary: 更新玩家信息
+      description: 更新指定id的玩家信息
+      operationId: updatePlayer
+      security:
+        - AccessTokenAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 玩家id
+          schema:
+            type: integer
+            format: int64
+        - name: player
+          in: query
+          required: true
+          description: 要更新的玩家数据
+          schema:
+            $ref: '#/components/schemas/Player'
+      responses:
+        200:
+          description: OK
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags:
+        - players
+      summary: 删除玩家信息
+      description: 删除指定id玩家信息
+      operationId: deletePlayer
+      security:
+        - AccessTokenAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 玩家id.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'    
   /articles:
     get:
       tags:
