@@ -2,7 +2,7 @@
   "name": "vue-typescript-admin-template",
   "version": "1.0.0",
   "private": true,
-  "author": "Chong Guo <armourcy@gmail.com>",
+  "author": "57code",
   "scripts": {
     "serve": "concurrently \"npm:mock\" \"vue-cli-service serve\"",
     "build:prod": "vue-cli-service build",
@@ -109,12 +109,6 @@
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.41.5"
   },
-  "bugs": {
-    "url": "https://github.com/armour/vue-typescript-admin-template/issues"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
   "keywords": [
     "vue",
     "typescript",
@@ -122,14 +116,8 @@
     "template",
     "element-ui"
   ],
-  "lint-staged": {
-    "*.{js,vue}": [
-      "vue-cli-service lint",
-      "git add"
-    ]
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/armour/vue-typescript-admin-template.git"
+    "url": "git+https://github.com/57code/kkb-honor-admin.git"
   }
 }
