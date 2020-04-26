@@ -19,13 +19,14 @@ import '@/pwa/register-service-worker'
 import * as directives from '@/directives'
 import * as filters from '@/filters'
 
+// 将我们注册的国际化组件实例诸如element中
 Vue.use(ElementUI, {
   size: AppModule.size, // Set element-ui default size
   i18n: (key: string, value: string) => i18n.t(key, value)
 })
 
 Vue.use(SvgIcon, {
-  tagName: 'svg-icon',
+  tagName: 'svg-icon', // 图标组件名称
   defaultWidth: '1em',
   defaultHeight: '1em'
 })
