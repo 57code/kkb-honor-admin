@@ -13,6 +13,9 @@
         icon="el-icon-search"
         @click="handleFilter"
       >{{$t('player.btnFilter')}}</el-button>
+
+      <!-- 新增按钮 -->
+      <el-button type="success" icon="el-icon-edit" @click="handleCreate">{{$t('player.btnCreate')}}</el-button>
     </div>
 
     <!-- 列表 -->
@@ -30,6 +33,15 @@
       <el-table-column label="账户名" align="center">
         <template v-slot="{row}">{{row.accountname}}</template>
       </el-table-column>
+      <!-- 操作列 -->
+      <el-table-column label="操作" align="center">
+        <template v-slot="scope">
+          <router-link :to="'/players/edit/'+scope.row.id">
+            <el-button type="primary" icon="el-icon-edit">更新</el-button>
+          </router-link>
+          <el-button type="danger" icon="el-icon-remove" @click="handleDelete(scope)">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
     <!-- 分页 -->
@@ -45,7 +57,7 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { getPlayers } from "@/api/players";
+import { getPlayers, deletePlayer } from "@/api/players";
 import { Player } from "../../api/types";
 import Pagination from "@/components/Pagination/index.vue";
 
@@ -93,6 +105,32 @@ export default class list extends Vue {
     // 重置页码
     this.listQuery.page = 1;
     this.getList();
+  }
+
+  // 新增玩家
+  handleCreate() {
+    this.$router.push("/players/create");
+  }
+
+  // 删除玩家
+  handleDelete(scope: any) {
+    const {$index, row} = scope;
+    this.$confirm('确定删除玩家信息？', '警告', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }).then(async () => {
+      await deletePlayer(row.id)
+
+      this.list.splice($index, 1)
+      this.$message({
+        type: 'success',
+        message: '删除成功！'
+      })
+    }).catch(err => {
+      console.error(err);
+      
+    })
   }
 }
 </script>

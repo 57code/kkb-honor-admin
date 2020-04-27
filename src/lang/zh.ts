@@ -1,5 +1,6 @@
 export default {
   route: {
+    createPlayer: '创建玩家',
     playerMgt: '玩家管理',
     playerList: '玩家列表',
     dashboard: '首页',
@@ -111,7 +112,8 @@ export default {
   },
   player: {
     accountname: '请输入用户账号',
-    btnFilter: '查询'
+    btnFilter: '查询',
+    btnCreate: '新增玩家'
   },
   table: {
     dynamicTips1: '固定表头, 按照表头顺序排序',
