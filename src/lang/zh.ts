@@ -1,5 +1,7 @@
 export default {
   route: {
+    heroMgt: '英雄管理',
+    banPick: '办选信息',
     createPlayer: '创建玩家',
     playerMgt: '玩家管理',
     playerList: '玩家列表',

@@ -64,3 +64,27 @@ export interface Player {
   winningstreak: number, // 连胜场次
   wanttoplay: Hero[] // 想玩英雄
 }
+
+// 办选数据类型
+export interface BanPick {
+  hero: Hero,
+  ban: number,
+  pick: number
+}
+
+// Bp
+export interface Bp {
+  ban: number[],
+  pick: number[]
+}
+
+// 区间类型
+export type RangeType = 'week' | 'month' | 'quarter' | 'year'
+
+// 办选详情类型
+export type BanPickDetail = {
+  [key in RangeType]: Bp
+}
+
+// 带英雄数据详情
+export type BanPickDetailAndHero = { hero: Hero } & BanPickDetail
