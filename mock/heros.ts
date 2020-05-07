@@ -29,16 +29,20 @@ const banpick: BanPick[] = [
 ]
 const banpickDetail: BanPickDetailAndHero[] = [
     {
-        hero: heros[0], week: {
+        hero: heros[0], 
+        week: {
             ban: [0.05, 0.04, 0.03, 0.05, 0.06, 0.05, 0.05],
             pick: [0.15, 0.1, 0.11, 0.12, 0.09, 0.12, 0.11]
-        }, month: {
+        }, 
+        month: {
             ban: [0.05, 0.04, 0.03, 0.05, 0.06, 0.05, 0.05, 0.05, 0.04, 0.03, 0.05, 0.06, 0.05, 0.05, 0.05, 0.04, 0.03, 0.05, 0.06, 0.05, 0.05, 0.05, 0.04, 0.03, 0.05, 0.06, 0.05, 0.05],
             pick: [0.15, 0.1, 0.11, 0.12, 0.09, 0.12, 0.11, 0.05, 0.04, 0.03, 0.05, 0.06, 0.05, 0.05, 0.05, 0.04, 0.03, 0.05, 0.06, 0.05, 0.05, 0.05, 0.04, 0.03, 0.05, 0.06, 0.05, 0.05]
-        }, quarter: {
+        }, 
+        quarter: {
             ban: [0.05, 0.04, 0.03, 0.05],
             pick: [0.15, 0.1, 0.11, 0.12]
-        }, year: {
+        }, 
+        year: {
             ban: [0.05, 0.04, 0.03, 0.05, 0.06, 0.05, 0.05, 0.03, 0.05, 0.06, 0.05, 0.05],
             pick: [0.15, 0.1, 0.11, 0.12, 0.09, 0.12, 0.11, 0.1, 0.11, 0.12, 0.09, 0.10]
         }
@@ -114,10 +118,14 @@ export const deleteHero = (req: Request, res: Response) => {
 }
 
 export const getBanPickData = (req: Request, res: Response) => {
+    const { page = 1, limit = 20 } = req.query
+    const pageList = banpick.filter(
+        (_, index) => index < limit * page && index >= limit * (page - 1))
+
     return res.json({
         code: 20000,
         data: {
-            banpick,
+            banpick: pageList,
             total: banpick.length
         }
     })

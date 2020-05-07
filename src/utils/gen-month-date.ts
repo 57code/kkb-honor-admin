@@ -1,7 +1,7 @@
 export function genMonthDateCount() {
   const now = new Date()
   const year = now.getFullYear()
-  const month = now.getMonth() + 1
+  const month = now.getMonth()
   const date = new Date(year, month, 0)
   return date.getDate()
 }

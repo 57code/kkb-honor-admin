@@ -2,234 +2,61 @@
   <div class="chart-container">
     <!-- 周期选择 -->
     <div class="range">
-      <el-radio-group
-        v-model="range"
-        @change="onRangeChange"
-      >
-        <el-radio-button label="week">
-          周
-        </el-radio-button>
-        <el-radio-button label="month">
-          月
-        </el-radio-button>
-        <el-radio-button label="quarter">
-          季度
-        </el-radio-button>
-        <el-radio-button label="year">
-          年
-        </el-radio-button>
+      <el-radio-group v-model="range">
+        <el-radio-button label="week">周</el-radio-button>
+        <el-radio-button label="month">月</el-radio-button>
+        <el-radio-button label="quarter">季度</el-radio-button>
+        <el-radio-button label="year">年</el-radio-button>
       </el-radio-group>
     </div>
-    <line-chart
-      ref="chart"
-      height="100%"
-      width="100%"
-    />
+    <line-chart v-if="detail" height="100%" width="100%" :chart-data="this.chartData" />
+    <p v-else>没有任何数据...</p>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import LineChart from '@/components/Charts/LineChart.vue'
-import { getBanpickDetail } from '@/api/heros'
-import { BanPickDetailAndHero, RangeType, RangeData } from '@/api/types'
-import echarts, { EChartOption } from 'echarts'
-import { getDateArray } from '@/utils/gen-month-date'
+import { Component, Vue } from "vue-property-decorator";
+import LineChart from "./components/LineChart.vue";
+import { getBanpickDetail } from "@/api/heros";
+import { BanPickDetailAndHero, RangeType, RangeData } from "@/api/types";
+import { getDateArray } from "@/utils/gen-month-date";
+
+const rangeData: RangeData = {
+  week: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+  month: getDateArray(),
+  quarter: ["一季度", "二季度", "三季度", "四季度"],
+  year: new Array(12).fill(1).map((v,i)=>(i+1)+'月')
+};
 
 @Component({
-  name: 'BanPickDetail',
+  name: "BanPickDetail",
   components: {
     LineChart
   }
 })
 export default class extends Vue {
-  range: RangeType = 'week';
+  range: RangeType = "week";
 
   detail: BanPickDetailAndHero | null = null;
 
   async created() {
-    const res = await getBanpickDetail(this.$route.params.id)
-    this.detail = res.data.detail as BanPickDetailAndHero
-    this.initChart()
+    const res = await getBanpickDetail(this.$route.params.id);
+    this.detail = res.data.detail;
+    
   }
 
-  onRangeChange() {
-    this.initChart()
-  }
-
-  initChart() {
+  get chartData() {    
+    
     if (!this.detail) {
-      return
+      return { heroName: "", xAxisData: [], banData: [], pickData: [] };
     }
-    const heroName = this.detail.hero.name
-    const banData = this.detail[this.range].ban
-    const pickData = this.detail[this.range].pick
-    const rangeData: RangeData = {
-      week: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-      month: getDateArray(),
-      quarter: ['一季度', '二季度', '三季度', '四季度'],
-      year: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月']
-    }
-    const xAxisData = rangeData[this.range]
-    const option: EChartOption<EChartOption.SeriesLine> = {
-      backgroundColor: '#394056',
-      title: {
-        top: 20,
-        text: heroName + '近期办选走势',
-        textStyle: {
-          fontWeight: 'normal',
-          fontSize: 16,
-          color: '#F1F1F3'
-        },
-        left: '1%'
-      },
-      tooltip: {
-        trigger: 'axis',
-        formatter: ([f1, f2]: EChartOption.Tooltip.Format[]) => {
-          const v1 = f1.data * 100 + '%'
-          const v2 = f2.data * 100 + '%'
-          return '办选率<br>' + f1.marker + f1.seriesName + ':' + v1 + '<br>' + f2.marker + f2.seriesName + ':' + v2
-        }
-      },
-      legend: {
-        top: 20,
-        icon: 'rect',
-        itemWidth: 14,
-        itemHeight: 5,
-        itemGap: 13,
-        data: ['禁用率', '登场率'],
-        right: '4%',
-        textStyle: {
-          fontSize: 12,
-          color: '#F1F1F3'
-        }
-      },
-      grid: {
-        top: 100,
-        left: '2%',
-        right: '2%',
-        bottom: '2%',
-        containLabel: true
-      },
-      xAxis: [
-        {
-          type: 'category',
-          boundaryGap: false,
-          axisLine: {
-            lineStyle: {
-              color: '#57617B'
-            }
-          },
-          data: xAxisData
-        }
-      ],
-      yAxis: [
-        {
-          type: 'value',
-          name: '百分比',
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#57617B'
-            }
-          },
-          axisLabel: {
-            margin: 10,
-            fontSize: 14,
-            formatter: function(value: number) {
-              return value * 100 + '%'
-            }
-          },
-          splitLine: {
-            lineStyle: {
-              color: '#57617B'
-            }
-          }
-        }
-      ],
-      series: [
-        {
-          name: '登场率',
-          type: 'line',
-          // smooth: true,
-          symbol: 'circle',
-          symbolSize: 5,
-          // showSymbol: false,
-          lineStyle: {
-            width: 2
-          },
-          areaStyle: {
-            color: new echarts.graphic.LinearGradient(
-              0,
-              0,
-              0,
-              1,
-              [
-                {
-                  offset: 0,
-                  color: 'rgba(0, 136, 212, 0.3)'
-                },
-                {
-                  offset: 0.8,
-                  color: 'rgba(0, 136, 212, 0)'
-                }
-              ],
-              false
-            ),
-            shadowColor: 'rgba(0, 0, 0, 0.1)',
-            shadowBlur: 10
-          },
-          itemStyle: {
-            color: 'rgb(0,136,212)',
-            borderColor: 'rgba(0,136,212,0.2)',
-            borderWidth: 12
-          },
-          data: pickData
-        },
-        {
-          name: '禁用率',
-          type: 'line',
-          // smooth: true,
-          symbol: 'circle',
-          symbolSize: 5,
-          // showSymbol: false,
-          lineStyle: {
-            width: 2
-          },
-          areaStyle: {
-            color: new echarts.graphic.LinearGradient(
-              0,
-              0,
-              0,
-              1,
-              [
-                {
-                  offset: 0,
-                  color: 'rgba(219, 50, 51, 0.3)'
-                },
-                {
-                  offset: 0.8,
-                  color: 'rgba(219, 50, 51, 0)'
-                }
-              ],
-              false
-            ) as any,
-            shadowColor: 'rgba(0, 0, 0, 0.1)',
-            shadowBlur: 10
-          },
-          itemStyle: {
-            color: 'rgb(219,50,51)',
-            borderColor: 'rgba(219,50,51,0.2)',
-            borderWidth: 12
-          },
-          data: banData
-        }
-      ]
-    }
-    const chart = this.$refs.chart as LineChart
-    chart.initChart(option)
+
+    const xAxisData = rangeData[this.range];
+    const banData = this.detail[this.range].ban;
+    const pickData = this.detail[this.range].pick;
+    const data = { heroName: this.detail.hero.name, xAxisData, banData, pickData }
+
+    return data;
   }
 }
 </script>
