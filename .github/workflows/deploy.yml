@@ -31,7 +31,7 @@ jobs:
         uses: easingthemes/ssh-deploy@v2.1.1
         env:
           # 私钥
-          SSH_PRIVATE_KEY: ${{ secrets.PRIMARY_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           # scp参数
           ARGS: "-avzr --delete"
           # 源目录
