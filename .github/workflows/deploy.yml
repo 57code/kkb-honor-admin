@@ -3,7 +3,7 @@ name: Build app and deploy to aliyun
 on:
   push:
     branches:
-      - master
+      - ci-test
 
 jobs:
   build:
