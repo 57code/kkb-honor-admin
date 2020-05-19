@@ -23,7 +23,7 @@ jobs:
       # 安装依赖
       - name: Yarn install
         run: npm install yarn && yarn install
-      # 打包
+      # 前端代码打包
       - name: Yarn build
         run: yarn run build:prod
       # 部署到阿里云
@@ -41,4 +41,24 @@ jobs:
           # 用户
           REMOTE_USER: "root"
           # 目标地址
-          TARGET: "/root/kkb-honor-admin"
+          TARGET: "/root/kkb-honor-admin/client"
+      # 接口代码打包
+      - name: API build
+        run: cd mock && tsc -P tsconfig.json && cp swagger.yml ./dist
+      # 部署到阿里云
+      - name: Deploy to Aliyun
+        uses: easingthemes/ssh-deploy@v2.1.1
+        env:
+          # 私钥
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          # scp参数
+          ARGS: "-avzr --delete"
+          # 源目录
+          SOURCE: "./mock/dist"
+          # 服务器ip
+          REMOTE_HOST: "47.98.252.43"
+          # 用户
+          REMOTE_USER: "root"
+          # 目标地址
+          TARGET: "/root/kkb-honor-admin/server"
+    

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
     "target": "esnext",
     "module": "commonjs",
     "strict": true,
@@ -16,6 +17,7 @@
       "webpack-env"
     ]
   },
+  
   "include": [
     "**/*.ts",
     "**/*.tsx"
