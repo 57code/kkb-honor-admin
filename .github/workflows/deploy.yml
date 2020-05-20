@@ -44,7 +44,7 @@ jobs:
           TARGET: "/root/kkb-honor-admin/client"
       # 接口代码打包
       - name: API build
-        run: cd mock && tsc -P tsconfig.json && cp swagger.yml ./dist
+        run: cd mock && tsc -P tsconfig.json && cp swagger.yml ./dist && cp package.json ./dist
       # 部署到阿里云
       - name: Deploy to Aliyun
         uses: easingthemes/ssh-deploy@v2.1.1
